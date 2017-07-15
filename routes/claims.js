@@ -6,7 +6,7 @@ const express = require('express'),
 const Claim = mongoose.model('Claim');
 
 router.get('/', authenticate, (req, res, next) => {
-  return Claim.find({})
+  Claim.find({})
       .exec()
       .then(result => res.json({claims: result}))
       .catch(next);
@@ -17,6 +17,19 @@ router.post('/', (req, res, next) => {
   claim.save()
       .then(claim => res.json({claim}))
       .catch(next);
+});
+
+router.put('/:id', (req, res, next) => {
+  Claim.findOne({_id: req.params.id})
+      .exec()
+      .then(claim => {
+        Object.keys(req.body.claim).map(k => {
+          claim[k] = req.body.claim[k];
+        });
+        return claim.save()
+      })
+      .then(claim => res.json({claim}))
+      .catch(next)
 });
 
 module.exports = router;
