@@ -12,9 +12,9 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  let claim = new Claim(Object.assign(req.body.claim, {status: 'NEW'}));
+  const claim = new Claim(Object.assign(req.body.claim, {status: 'NEW'}));
   claim.save()
-      .then(claim => res.json({claim: claim}))
+      .then(claim => res.json({claim}))
       .catch(next);
 });
 

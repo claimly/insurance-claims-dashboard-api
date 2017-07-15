@@ -22,6 +22,7 @@ if(inProduction){
   mongoose.set('debug', 'true');
 }
 require('./models/Claim');
+require('./models/User');
 
 
 app.use(require('./routes'));
