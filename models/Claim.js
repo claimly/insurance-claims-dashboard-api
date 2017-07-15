@@ -2,13 +2,13 @@ const mongoose = require('mongoose');
 const {CLAIM_STATUSES, CLAIM_TYPES} = require('./consts');
 
 const ClaimSchema = new mongoose.Schema({
-  name: String,
-  email: String,
-  policyId: String,
-  type: {type: String, enum: CLAIM_TYPES},
-  amount: Number,
-  date: Date,
-  status: {type: String, enum: CLAIM_STATUSES}
+  name: {type: String, required: true},
+  email: {type: String, required: true},
+  policyId: {type: String, required: true},
+  type: {type: String, enum: CLAIM_TYPES, required: true},
+  amount: {type: Number, required: true},
+  date: {type: Date, required: true},
+  status: {type: String, enum: CLAIM_STATUSES, required: true}
 }, {timestamps: true});
 
 mongoose.model('Claim', ClaimSchema);
