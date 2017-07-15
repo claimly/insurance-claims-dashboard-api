@@ -1,5 +1,6 @@
 const express = require('express'),
       mongoose = require('mongoose'),
+      authenticate = require('./authHelper').authenticate,
       router = express.Router();
 
 const User = mongoose.model('User');
@@ -28,7 +29,7 @@ router.post('/login', (req, res, next) => {
       });
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', authenticate, (req, res, next) => {
   let user = new User({login: req.body.user.login});
   user.setPassword(req.body.user.password);
   user.save()

@@ -1,10 +1,11 @@
 const express = require('express'),
       mongoose = require('mongoose'),
+      authenticate = require('./authHelper').authenticate,
       router = express.Router();
 
 const Claim = mongoose.model('Claim');
 
-router.get('/', (req, res, next) => {
+router.get('/', authenticate, (req, res, next) => {
   return Claim.find({})
       .exec()
       .then(result => res.json({claims: result}))
