@@ -29,7 +29,7 @@ router.post('/login', (req, res, next) => {
       });
 });
 
-router.post('/', authenticate, (req, res, next) => {
+router.post('/', (req, res, next) => {
   let user = new User({login: req.body.user.login});
   user.setPassword(req.body.user.password);
   user.save()
