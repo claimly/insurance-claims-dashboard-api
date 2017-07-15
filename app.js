@@ -14,11 +14,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 const inProduction = process.env.NODE_ENV === 'production';
 
-
-if(inProduction){
-  mongoose.connect(process.env.MONGO_URI);
-} else {
-  mongoose.connect('mongodb://localhost/foo');
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost/foo');
+if(!inProduction){
   mongoose.set('debug', 'true');
 }
 require('./models/Claim');
